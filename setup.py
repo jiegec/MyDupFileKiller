@@ -1,11 +1,16 @@
 # !/usr/bin/env python3
 from distutils.core import setup
-import py2exe
+
+try:
+    import py2exe
+except ImportError:
+    py2exe = None
+    pass
 
 setup(
-    name='MyDupFileKiller',
+    name='mydupfilekiller',
     description="A Duplicate File Killer",
-    version='1.1',
+    version='1.2',
     console=[{'script': 'mydupfilekiller.py'}],
     options={"py2exe": dict(compressed=True,
                             optimize=2,
