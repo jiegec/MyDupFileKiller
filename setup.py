@@ -10,7 +10,7 @@ except ImportError:
 setup(
     name='mydupfilekiller',
     description="A Duplicate File Killer",
-    version='1.2',
+    version='1.3',
     console=[{'script': 'mydupfilekiller.py'}],
     options={"py2exe": dict(compressed=True,
                             optimize=2,

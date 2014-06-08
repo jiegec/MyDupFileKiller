@@ -1,5 +1,6 @@
 # !/usr/bin/env python3
 from hashlib import md5
+import collections
 import sys
 import os
 
@@ -11,7 +12,7 @@ def find(paths, output=False):
     :param output: If True, it outputs the result to the console.
     :return: A tuple of (filenum,dict). The dict is like {hash : [files]}
     """
-    hashes = dict()
+    hashes = collections.defaultdict(list)
     num = 0
     for path in paths:
         path = os.path.normpath(path)
@@ -28,11 +29,7 @@ def find(paths, output=False):
                     m.update(chunk)
                 f.close()
                 digest = m.hexdigest()
-                _list = list()
-                if digest in hashes:
-                    _list = hashes[digest]
-                _list.append(filename)
-                hashes[digest] = _list
+                hashes[digest].append(filename)
                 num += 1
                 if output:
                     print("Processed %d files." % num)
@@ -41,7 +38,7 @@ def find(paths, output=False):
         for key in hashes:
             _list = hashes[key]
             if len(_list) > 1:
-                print(key)
+                print("File hash: ",key)
                 for file in _list:
                     print(file)
                 print('')
