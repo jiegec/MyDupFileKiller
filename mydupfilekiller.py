@@ -9,7 +9,7 @@ def find(paths, output=False):
     A simple method to find all duplicate files.
     :param paths:  A list of paths.
     :param output: If True, it outputs the result to the console.
-    :return: A tuple of (num,dict). The num is the number of files. The dict is like {hash : [files]}
+    :return: A tuple of (filenum,dict). The dict is like {hash : [files]}
     """
     hashes = dict()
     num = 0
