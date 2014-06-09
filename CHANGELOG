@@ -1,0 +1,7 @@
+1.5 19:22 2014-06-09
+-----------------------------
+1.Fix the path problem in windows like c:Program Files
+
+1.4 19:20 2014-06-09
+-----------------------------
+1.Add method find_and_delete
