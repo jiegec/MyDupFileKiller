@@ -4,11 +4,12 @@ import sys
 import os
 
 
-def find(paths, output=False):
+def find(paths, output=False, skip_empty_files=True):
     """
     A simple method to find all duplicate files.
     :param paths:  A list of paths.
     :param output: If True, it outputs the result to the console.
+    :param skip_empty_files: It True, it skips empty files.
     :return: A tuple of (file_num,dict). The dict is like {hash : [files]}
     """
     hashes = collections.defaultdict(list)
@@ -31,6 +32,11 @@ def find(paths, output=False):
                 num += 1
                 if output:
                     print("Processed %d files." % num)
+    if skip_empty_files:
+        m = md5()
+        zero = m.hexdigest()
+        if zero in hashes:
+            del hashes[zero]
     if output:
         print("Done.")
         for key in hashes:
@@ -47,9 +53,9 @@ def default_choose_callback(files):
     """
     Default choose callback. Ask the user to determine.
     :param files: A list of duplicate file paths.
-    :return: A list of files to remove.
+    :return: A list of subscripts to remove.
     """
-    print('Choose files to delete [0-%d]:' % (len(files)-1))
+    print('Choose files to delete [0-%d]:' % (len(files) - 1))
     num = 0
     for file in files:
         print('%d: %s' % (num, file))
@@ -58,21 +64,25 @@ def default_choose_callback(files):
     ret = set()
     numbers = s.split(" ")
     for num in numbers:
-        if not num in range(0,len(files)):
+        if num not in range(0, len(files)):
             pass
         ret.add(int(num))
     return list(ret)
 
 
-def find_and_delete(paths, choose_callback=default_choose_callback, output=False):
+def find_and_delete(paths,
+                    choose_callback=default_choose_callback,
+                    output=False,
+                    skip_empty_files=True):
     """
-    Find the duplicate files in paths and call choose_callback to determine which to remove.
+    Find the duplicate files and call choose_callback to delete files.
     :param paths: The paths to find.
-    :param choose_callback: A callback like choose_callback([paths]) and returns a list of subscripts.
+    :param choose_callback: A callback like default_choose_callback
     :param output: If True, it outputs the result to the console.
+    :param skip_empty_files: It True, it skips empty files.
     :return: A tuple (files_deleted, bytes_freed).
     """
-    num, hashes = find(paths, output)
+    num, hashes = find(paths, output, skip_empty_files)
     files_deleted = list()
     bytes_freed = 0
     for key in hashes:
@@ -84,7 +94,8 @@ def find_and_delete(paths, choose_callback=default_choose_callback, output=False
                 bytes_freed += os.path.getsize(_list[subscript])
                 os.remove(_list[subscript])
     if output:
-        print("Deleted %d files and freed %d bytes. Enjoy your free space!" % (len(files_deleted), bytes_freed))
+        print("Deleted %d files and freed %d bytes. Enjoy your free space!"
+              % (len(files_deleted), bytes_freed))
     return files_deleted, bytes_freed
 
 
@@ -92,4 +103,4 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("You need to specify at least one path.")
         sys.exit()
-    find_and_delete(sys.argv[1:], default_choose_callback, True)
+    find_and_delete(sys.argv[1:], output=True)

@@ -1,7 +1,12 @@
+1.6 18:24 2014-06-10
+-----------------------------
+1.Make the code follow PEP8.
+2.Add new parameter skip_zero_files.
+
 1.5 19:22 2014-06-09
 -----------------------------
-1.Fix the path problem in windows like c:Program Files
+1.Fix the path problem in windows like c:Program Files.
 
 1.4 19:20 2014-06-09
 -----------------------------
-1.Add method find_and_delete
+1.Add method find_and_delete.
