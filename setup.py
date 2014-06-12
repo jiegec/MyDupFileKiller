@@ -5,7 +5,7 @@ setup(
     name="mydupfilekiller",
     packages=["mydupfilekiller"],
     description="A Duplicate File Killer",
-    version="1.6",
+    version="1.7",
     author="Wiadufa Chen",
     author_email="wiadufachen@gmail.com",
     url="https://github.com/wiadufachen/mydupfilekiller",
