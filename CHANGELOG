@@ -1,3 +1,13 @@
+1.9 17:47 2014-06-18
+-----------------------------
+1.Split one .py to multiple.
+2.Added GUI! Require wxPython-Phoenix.
+3.Add entry points.
+
+1.8 07:45 2014-06-14
+-----------------------------
+1.Add __author__.
+
 1.7 18:05 2014-06-12
 -----------------------------
 1.Add __init__.py

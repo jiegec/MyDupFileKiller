@@ -1,0 +1,27 @@
+Metadata-Version: 1.1
+Name: mydupfilekiller
+Version: 1.9
+Summary: A Duplicate File Killer
+Home-page: https://github.com/wiadufachen/mydupfilekiller
+Author: Wiadufa Chen
+Author-email: wiadufachen@gmail.com
+License: UNKNOWN
+Description: My Duplicate File Killer
+        ------------------------
+        
+          My first library to find duplicate files. You can invoke the find_and_delete method to find the duplicate files in the paths.
+        
+        Installation
+        ------------------------
+        
+          Just like other ones, just type:
+        
+            pip install mydupfilekiller
+        
+          And that's all.
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Development Status :: 4 - Beta
+Classifier: Operating System :: OS Independent

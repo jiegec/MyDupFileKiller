@@ -1,11 +1,17 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
+try:
+    import py2exe
+except ImportError:
+    pass
 
 
 setup(
     name="mydupfilekiller",
-    packages=["mydupfilekiller"],
+    packages=find_packages(),
     description="A Duplicate File Killer",
-    version="1.7",
+    version="1.9",
+    entry_points={'console_scripts': ['mydupfilekiller = mydupfilekiller:main'],
+                  'gui_scripts': ['mydupfilekiller-gui = mydupfilekiller:gui']},
     author="Wiadufa Chen",
     author_email="wiadufachen@gmail.com",
     url="https://github.com/wiadufachen/mydupfilekiller",
@@ -15,11 +21,9 @@ setup(
                  "Development Status :: 4 - Beta",
                  "Operating System :: OS Independent",
                  ],
-    long_description="""\
-    My Duplicate File Killer
-    ------------------------
-
-      My first library to find duplicate files. You can invoke the find methodto find the duplicate files in the paths.
-
-"""
+    long_description=open('README.txt').read(),
+    include_package_data=True,
+    package_data={
+        '': ['*.xrc']
+    }
 )

@@ -1,0 +1,6 @@
+[console_scripts]
+mydupfilekiller = mydupfilekiller:main
+
+[gui_scripts]
+mydupfilekiller-gui = mydupfilekiller:gui
+

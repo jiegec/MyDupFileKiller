@@ -1,0 +1,13 @@
+README.txt
+setup.py
+mydupfilekiller/__init__.py
+mydupfilekiller/console.py
+mydupfilekiller/core.py
+mydupfilekiller/exceptions.py
+mydupfilekiller/gui.py
+mydupfilekiller/wx_gui.xrc
+mydupfilekiller.egg-info/PKG-INFO
+mydupfilekiller.egg-info/SOURCES.txt
+mydupfilekiller.egg-info/dependency_links.txt
+mydupfilekiller.egg-info/entry_points.txt
+mydupfilekiller.egg-info/top_level.txt
