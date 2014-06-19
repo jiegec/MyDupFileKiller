@@ -4,10 +4,12 @@ import time
 import threading
 import os
 import sys
+from pkg_resources import resource_filename
 from mydupfilekiller.core import *
 from mydupfilekiller.exceptions import *
 
-gui = None
+has_wx = False
+
 try:
     import wx
     from wx import xrc
@@ -27,7 +29,7 @@ try:
     def call_in_main_thread(context, target, *args, **kwargs):
         try:
             context['result'] = target(*args, **kwargs)
-        except:
+        except SkipAllException:
             context['exception'] = True
         context['event'].set()
 
@@ -42,7 +44,8 @@ try:
     class App(wx.App):
 
         def OnInit(self):
-            self.res = xrc.XmlResource(get_path('wx_gui.xrc'))
+            self.res = xrc.XmlResource(
+                resource_filename(__name__, 'wx_gui.xrc'))
             self.init_frame()
             return True
 
@@ -154,17 +157,27 @@ try:
         app = App()
         app.MainLoop()
 
-    gui = wx_gui
+    has_wx = True
 except ImportError:
     wx = None
     xrc = None
 
-    def require_wx():
-        showerror("My Duplicate File Killer",
-                  "No wxPython-Phoenix installed. Please type pip install --pre -f \
-                http://wxpython.org/Phoenix/snapshot-builds wxpython-phoenix --upgrade.")
-    gui = require_wx
 
+def require_wx():
+    showerror("My Duplicate File Killer",
+              "No wxPython-Phoenix installed. Please type pip install --upgrade --pre -f \
+            http://wxpython.org/Phoenix/snapshot-builds wxpython-phoenix.")
+
+
+def gui():
+    """
+    A simple gui for the module. If wxPython-Phoenix not installed, it starts a message box.
+    :return: None
+    """
+    if has_wx:
+        wx_gui()
+    else:
+        require_wx()
 
 if __name__ == "__main__":
     gui()

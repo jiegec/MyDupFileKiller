@@ -1,15 +1,10 @@
 from setuptools import setup, find_packages
-try:
-    import py2exe
-except ImportError:
-    pass
-
 
 setup(
     name="mydupfilekiller",
     packages=find_packages(),
     description="A Duplicate File Killer",
-    version="1.9",
+    version="2.0",
     entry_points={'console_scripts': ['mydupfilekiller = mydupfilekiller:main'],
                   'gui_scripts': ['mydupfilekiller-gui = mydupfilekiller:gui']},
     author="Wiadufa Chen",

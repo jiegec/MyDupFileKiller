@@ -12,6 +12,10 @@ def usage():
 
 
 def main():
+    """
+    Simple console version for the module.
+    :return: None
+    """
     try:
         opts, args = getopt.getopt(sys.argv[1:], "lh", ["help"])
         delete = True
