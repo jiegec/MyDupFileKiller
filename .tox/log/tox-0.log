@@ -1,0 +1,49 @@
+actionid=tox
+msg=packaging
+cmdargs=['h:\\Python\\Python34\\python.exe', local('h:\\IntelliJ IDEA\\MyDupFileKiller\\setup.py'), 'sdist', '--formats=zip', '--dist-dir', local('h:\\IntelliJ IDEA\\MyDupFileKiller\\.tox\\dist')]
+env=None
+running sdist
+running egg_info
+writing top-level names to mydupfilekiller.egg-info\top_level.txt
+writing dependency_links to mydupfilekiller.egg-info\dependency_links.txt
+writing entry points to mydupfilekiller.egg-info\entry_points.txt
+writing mydupfilekiller.egg-info\PKG-INFO
+reading manifest file 'mydupfilekiller.egg-info\SOURCES.txt'
+writing manifest file 'mydupfilekiller.egg-info\SOURCES.txt'
+running check
+creating mydupfilekiller-2.1
+creating mydupfilekiller-2.1\mydupfilekiller
+creating mydupfilekiller-2.1\mydupfilekiller.egg-info
+making hard links in mydupfilekiller-2.1...
+hard linking README.txt -> mydupfilekiller-2.1
+hard linking setup.py -> mydupfilekiller-2.1
+hard linking mydupfilekiller\__init__.py -> mydupfilekiller-2.1\mydupfilekiller
+hard linking mydupfilekiller\console.py -> mydupfilekiller-2.1\mydupfilekiller
+hard linking mydupfilekiller\core.py -> mydupfilekiller-2.1\mydupfilekiller
+hard linking mydupfilekiller\exceptions.py -> mydupfilekiller-2.1\mydupfilekiller
+hard linking mydupfilekiller\gui.py -> mydupfilekiller-2.1\mydupfilekiller
+hard linking mydupfilekiller\wx_gui.xrc -> mydupfilekiller-2.1\mydupfilekiller
+hard linking mydupfilekiller.egg-info\PKG-INFO -> mydupfilekiller-2.1\mydupfilekiller.egg-info
+hard linking mydupfilekiller.egg-info\SOURCES.txt -> mydupfilekiller-2.1\mydupfilekiller.egg-info
+hard linking mydupfilekiller.egg-info\dependency_links.txt -> mydupfilekiller-2.1\mydupfilekiller.egg-info
+hard linking mydupfilekiller.egg-info\entry_points.txt -> mydupfilekiller-2.1\mydupfilekiller.egg-info
+hard linking mydupfilekiller.egg-info\top_level.txt -> mydupfilekiller-2.1\mydupfilekiller.egg-info
+Writing mydupfilekiller-2.1\setup.cfg
+creating h:\IntelliJ IDEA\MyDupFileKiller\.tox\dist
+creating 'h:\IntelliJ IDEA\MyDupFileKiller\.tox\dist\mydupfilekiller-2.1.zip' and adding 'mydupfilekiller-2.1' to it
+adding 'mydupfilekiller-2.1\PKG-INFO'
+adding 'mydupfilekiller-2.1\README.txt'
+adding 'mydupfilekiller-2.1\setup.cfg'
+adding 'mydupfilekiller-2.1\setup.py'
+adding 'mydupfilekiller-2.1\mydupfilekiller\console.py'
+adding 'mydupfilekiller-2.1\mydupfilekiller\core.py'
+adding 'mydupfilekiller-2.1\mydupfilekiller\exceptions.py'
+adding 'mydupfilekiller-2.1\mydupfilekiller\gui.py'
+adding 'mydupfilekiller-2.1\mydupfilekiller\wx_gui.xrc'
+adding 'mydupfilekiller-2.1\mydupfilekiller\__init__.py'
+adding 'mydupfilekiller-2.1\mydupfilekiller.egg-info\dependency_links.txt'
+adding 'mydupfilekiller-2.1\mydupfilekiller.egg-info\entry_points.txt'
+adding 'mydupfilekiller-2.1\mydupfilekiller.egg-info\PKG-INFO'
+adding 'mydupfilekiller-2.1\mydupfilekiller.egg-info\SOURCES.txt'
+adding 'mydupfilekiller-2.1\mydupfilekiller.egg-info\top_level.txt'
+removing 'mydupfilekiller-2.1' (and everything under it)

@@ -1,6 +1,7 @@
 __all__ = ["main"]
-import sys
 import getopt
+import sys
+
 from mydupfilekiller.core import *
 
 

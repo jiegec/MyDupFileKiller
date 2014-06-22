@@ -1,0 +1,46 @@
+mydupfilekiller package
+=======================
+
+Submodules
+----------
+
+mydupfilekiller.console module
+------------------------------
+
+.. automodule:: mydupfilekiller.console
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+mydupfilekiller.core module
+---------------------------
+
+.. automodule:: mydupfilekiller.core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+mydupfilekiller.exceptions module
+---------------------------------
+
+.. automodule:: mydupfilekiller.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+mydupfilekiller.gui module
+--------------------------
+
+.. automodule:: mydupfilekiller.gui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: mydupfilekiller
+    :members:
+    :undoc-members:
+    :show-inheritance:

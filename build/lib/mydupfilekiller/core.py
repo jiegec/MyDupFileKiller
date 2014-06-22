@@ -1,8 +1,9 @@
 __all__ = ["find", "find_and_delete"]
-from hashlib import md5
 import collections
+from hashlib import md5
 import os
-from mydupfilekiller.exceptions import *
+
+from mydupfilekiller.exceptions import SkipAllException
 
 
 def find(paths, output=False, skip_empty_files=True, follow_links=False):

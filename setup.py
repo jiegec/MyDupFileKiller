@@ -1,12 +1,20 @@
+try:
+    import setuptools
+except ImportError:
+    from ez_setup import use_setuptools
+    use_setuptools()
+    
+from mydupfilekiller import __version__
 from setuptools import setup, find_packages
+
 
 setup(
     name="mydupfilekiller",
     packages=find_packages(),
     description="A Duplicate File Killer",
-    version="2.0",
-    entry_points={'console_scripts': ['mydupfilekiller = mydupfilekiller:main'],
-                  'gui_scripts': ['mydupfilekiller-gui = mydupfilekiller:gui']},
+    version=__version__,
+    entry_points={'console_scripts': ['mydupfilekiller = mydupfilekiller.console:main',
+                                      'mydupfilekiller-gui = mydupfilekiller.gui:main']},
     author="Wiadufa Chen",
     author_email="wiadufachen@gmail.com",
     url="https://github.com/wiadufachen/mydupfilekiller",
@@ -19,6 +27,6 @@ setup(
     long_description=open('README.txt').read(),
     include_package_data=True,
     package_data={
-        '': ['*.xrc']
+        'mydupfilekiller': ['*.xrc']
     }
 )

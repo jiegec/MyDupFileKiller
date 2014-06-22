@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mydupfilekiller package &mdash; .  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title=".  documentation" href="index.html" />
+    <link rel="next" title="setup module" href="setup.html" />
+    <link rel="prev" title="Welcome to .’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="setup.html" title="setup module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to .’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">.  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mydupfilekiller-package">
+<h1>mydupfilekiller package<a class="headerlink" href="#mydupfilekiller-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-mydupfilekiller.console">
+<span id="mydupfilekiller-console-module"></span><h2>mydupfilekiller.console module<a class="headerlink" href="#module-mydupfilekiller.console" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="mydupfilekiller.console.main">
+<tt class="descclassname">mydupfilekiller.console.</tt><tt class="descname">main</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mydupfilekiller/console.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mydupfilekiller.console.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple console version for the module.
+:return: None</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mydupfilekiller.core">
+<span id="mydupfilekiller-core-module"></span><h2>mydupfilekiller.core module<a class="headerlink" href="#module-mydupfilekiller.core" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="mydupfilekiller.core.find">
+<tt class="descclassname">mydupfilekiller.core.</tt><tt class="descname">find</tt><big>(</big><em>paths</em>, <em>output=False</em>, <em>skip_empty_files=True</em>, <em>follow_links=False</em><big>)</big><a class="reference internal" href="_modules/mydupfilekiller/core.html#find"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mydupfilekiller.core.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple method to find all duplicate files.
+:param paths:  A list of paths.
+:type paths: list
+:param output: If True, it outputs the result to the console.
+:type output: bool
+:param skip_empty_files: It True, it skips empty files.
+:type skip_empty_files: bool
+:param follow_links: See <a class="reference external" href="https://docs.python.org/3/library/os.html#os.walk">https://docs.python.org/3/library/os.html#os.walk</a>.
+:type follow_links: bool
+:return: A tuple of (file_num,dict). The dict is like {hash : (paths)}
+:rtype: tuple</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="mydupfilekiller.core.find_and_delete">
+<tt class="descclassname">mydupfilekiller.core.</tt><tt class="descname">find_and_delete</tt><big>(</big><em>paths</em>, <em>choose_callback=&lt;function default_choose_callback at 0x035FDC90&gt;</em>, <em>output=False</em>, <em>skip_empty_files=True</em>, <em>follow_links=False</em><big>)</big><a class="reference internal" href="_modules/mydupfilekiller/core.html#find_and_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mydupfilekiller.core.find_and_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the duplicate files and call choose_callback to delete files.
+:param paths: The paths to find.
+:type paths: list
+:param choose_callback: A callback like default_choose_callback, return files to delete.
+:type choose_callback: function
+:param output: If True, it outputs the result to the console.
+:type output: bool
+:param skip_empty_files: It True, it skips empty files.
+:type skip_empty_files: bool
+:param follow_links: See <a class="reference external" href="https://docs.python.org/3/library/os.html#os.walk">https://docs.python.org/3/library/os.html#os.walk</a>.
+:type follow_links: bool
+:return: A tuple (files_deleted, bytes_freed).
+:rtype: tuple</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mydupfilekiller.exceptions">
+<span id="mydupfilekiller-exceptions-module"></span><h2>mydupfilekiller.exceptions module<a class="headerlink" href="#module-mydupfilekiller.exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="mydupfilekiller.exceptions.SkipAllException">
+<em class="property">exception </em><tt class="descclassname">mydupfilekiller.exceptions.</tt><tt class="descname">SkipAllException</tt><a class="reference internal" href="_modules/mydupfilekiller/exceptions.html#SkipAllException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mydupfilekiller.exceptions.SkipAllException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mydupfilekiller.gui">
+<span id="mydupfilekiller-gui-module"></span><h2>mydupfilekiller.gui module<a class="headerlink" href="#module-mydupfilekiller.gui" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="mydupfilekiller.gui.gui">
+<tt class="descclassname">mydupfilekiller.gui.</tt><tt class="descname">gui</tt><big>(</big><big>)</big><a class="headerlink" href="#mydupfilekiller.gui.gui" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to open the gui. It requires wxPython-Phoenix. If wxPython-Phoenix not installed,
+it starts an message box to ask user to install wxPython-Phoenix.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mydupfilekiller">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mydupfilekiller" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">mydupfilekiller package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-mydupfilekiller.console">mydupfilekiller.console module</a></li>
+<li><a class="reference internal" href="#module-mydupfilekiller.core">mydupfilekiller.core module</a></li>
+<li><a class="reference internal" href="#module-mydupfilekiller.exceptions">mydupfilekiller.exceptions module</a></li>
+<li><a class="reference internal" href="#module-mydupfilekiller.gui">mydupfilekiller.gui module</a></li>
+<li><a class="reference internal" href="#module-mydupfilekiller">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to .&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="setup.html"
+                        title="next chapter">setup module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mydupfilekiller.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="setup.html" title="setup module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to .’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">.  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

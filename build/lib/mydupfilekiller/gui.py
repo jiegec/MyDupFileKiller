@@ -1,14 +1,19 @@
-__all__ = ["gui"]
-from tkinter.messagebox import *
-import time
-import threading
-import os
+import os   
 import sys
-from pkg_resources import resource_filename
-from mydupfilekiller.core import *
-from mydupfilekiller.exceptions import *
+import threading
+import time
+from tkinter.messagebox import showerror
+
+import pkg_resources
+
+from mydupfilekiller.core import find_and_delete
+from mydupfilekiller.exceptions import SkipAllException
+
+
+__all__ = ["main"]
 
 has_wx = False
+
 
 try:
     import wx
@@ -38,14 +43,12 @@ try:
             return call_and_wait(func, *args, **kwargs)
         return _func
 
-    def get_path(path):
-        return os.path.join(os.path.abspath(os.path.dirname(__file__)), path)
-
     class App(wx.App):
 
         def OnInit(self):
-            self.res = xrc.XmlResource(
-                resource_filename(__name__, 'wx_gui.xrc'))
+            self.res = xrc.XmlResource.Get()
+            self.res.Load(
+                pkg_resources.ResourceManager().resource_filename('mydupfilekiller', 'wx_gui.xrc'))
             self.init_frame()
             return True
 
@@ -169,7 +172,7 @@ def require_wx():
             http://wxpython.org/Phoenix/snapshot-builds wxpython-phoenix.")
 
 
-def gui():
+def main():
     """
     A simple gui for the module. If wxPython-Phoenix not installed, it starts a message box.
     :return: None
@@ -180,4 +183,4 @@ def gui():
         require_wx()
 
 if __name__ == "__main__":
-    gui()
+    main()

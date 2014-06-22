@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mydupfilekiller.core &mdash; .  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title=".  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">.  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mydupfilekiller.core</h1><div class="highlight"><pre>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;find&quot;</span><span class="p">,</span> <span class="s">&quot;find_and_delete&quot;</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">md5</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">mydupfilekiller.exceptions</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="find"><a class="viewcode-back" href="../../mydupfilekiller.html#mydupfilekiller.core.find">[docs]</a><span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">skip_empty_files</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">follow_links</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple method to find all duplicate files.</span>
+<span class="sd">    :param paths:  A list of paths.</span>
+<span class="sd">    :type paths: list</span>
+<span class="sd">    :param output: If True, it outputs the result to the console.</span>
+<span class="sd">    :type output: bool</span>
+<span class="sd">    :param skip_empty_files: It True, it skips empty files.</span>
+<span class="sd">    :type skip_empty_files: bool</span>
+<span class="sd">    :param follow_links: See https://docs.python.org/3/library/os.html#os.walk.</span>
+<span class="sd">    :type follow_links: bool</span>
+<span class="sd">    :return: A tuple of (file_num,dict). The dict is like {hash : (paths)}</span>
+<span class="sd">    :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hashes</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">followlinks</span><span class="o">=</span><span class="n">follow_links</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">md5</span><span class="p">()</span>
+                    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+                    <span class="nb">buffer</span> <span class="o">=</span> <span class="mi">8192</span>
+                    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">chunk</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">chunk</span><span class="p">:</span>
+                            <span class="k">break</span>
+                        <span class="n">m</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="n">digest</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+                    <span class="n">hashes</span><span class="p">[</span><span class="n">digest</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Processed </span><span class="si">%d</span><span class="s"> files.&quot;</span> <span class="o">%</span> <span class="n">num</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">skip_empty_files</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">md5</span><span class="p">()</span>
+            <span class="n">zero</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">zero</span> <span class="ow">in</span> <span class="n">hashes</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">hashes</span><span class="p">[</span><span class="n">zero</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Done.&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">hashes</span><span class="p">:</span>
+                <span class="n">set_</span> <span class="o">=</span> <span class="n">hashes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;File hash: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">set_</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">SkipAllException</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">num</span><span class="p">,</span> <span class="n">hashes</span>
+
+</div>
+<span class="k">def</span> <span class="nf">default_choose_callback</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Default choose callback. Ask the user to determine.</span>
+<span class="sd">    :param files: A list of duplicate file paths.</span>
+<span class="sd">    :type files: list</span>
+<span class="sd">    :return: A set of subscripts to remove.</span>
+<span class="sd">    :rtype: set</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Choose files to delete [0-</span><span class="si">%d</span><span class="s">]:&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%d</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">file</span><span class="p">))</span>
+        <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&quot;Input number to delete, separated by whitespace:&quot;</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ret</span>
+
+
+<div class="viewcode-block" id="find_and_delete"><a class="viewcode-back" href="../../mydupfilekiller.html#mydupfilekiller.core.find_and_delete">[docs]</a><span class="k">def</span> <span class="nf">find_and_delete</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span>
+                    <span class="n">choose_callback</span><span class="o">=</span><span class="n">default_choose_callback</span><span class="p">,</span>
+                    <span class="n">output</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                    <span class="n">skip_empty_files</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                    <span class="n">follow_links</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the duplicate files and call choose_callback to delete files.</span>
+<span class="sd">    :param paths: The paths to find.</span>
+<span class="sd">    :type paths: list</span>
+<span class="sd">    :param choose_callback: A callback like default_choose_callback, return files to delete.</span>
+<span class="sd">    :type choose_callback: function</span>
+<span class="sd">    :param output: If True, it outputs the result to the console.</span>
+<span class="sd">    :type output: bool</span>
+<span class="sd">    :param skip_empty_files: It True, it skips empty files.</span>
+<span class="sd">    :type skip_empty_files: bool</span>
+<span class="sd">    :param follow_links: See https://docs.python.org/3/library/os.html#os.walk.</span>
+<span class="sd">    :type follow_links: bool</span>
+<span class="sd">    :return: A tuple (files_deleted, bytes_freed).</span>
+<span class="sd">    :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">files_deleted</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">bytes_freed</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">num</span><span class="p">,</span> <span class="n">hashes</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span>
+                           <span class="n">output</span><span class="p">,</span>
+                           <span class="n">skip_empty_files</span><span class="p">,</span>
+                           <span class="n">follow_links</span><span class="p">)</span>
+        <span class="n">files_deleted</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">bytes_freed</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">hashes</span><span class="p">:</span>
+            <span class="n">set_</span> <span class="o">=</span> <span class="n">hashes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">files_to_remove</span> <span class="o">=</span> <span class="n">choose_callback</span><span class="p">(</span><span class="n">set_</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subscript</span> <span class="ow">in</span> <span class="n">files_to_remove</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">subscript</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="k">pass</span>
+                    <span class="n">files_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_</span><span class="p">[</span><span class="n">subscript</span><span class="p">])</span>
+                    <span class="n">bytes_freed</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">set_</span><span class="p">[</span><span class="n">subscript</span><span class="p">])</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">set_</span><span class="p">[</span><span class="n">subscript</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Deleted </span><span class="si">%d</span><span class="s"> files and freed </span><span class="si">%d</span><span class="s"> bytes. Enjoy your free space!&quot;</span>
+                  <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">files_deleted</span><span class="p">),</span> <span class="n">bytes_freed</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">SkipAllException</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">files_deleted</span><span class="p">,</span> <span class="n">bytes_freed</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">.  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
