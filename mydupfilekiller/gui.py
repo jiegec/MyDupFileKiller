@@ -8,6 +8,7 @@ import pkg_resources
 
 from mydupfilekiller.core import find_and_delete
 from mydupfilekiller.exceptions import SkipAllException
+from mydupfilekiller import __version__
 
 
 __all__ = ["main"]
@@ -95,11 +96,11 @@ try:
             path = os.path.abspath(path)
             if (not os.path.exists(path)) or (not os.path.isdir(path)):
                 wx.MessageBox("Wrong path!",
-                              "My Duplicate File Killer", wx.OK | wx.ICON_ERROR)
+                              "My Duplicate File Killer %s" % __version__, wx.OK | wx.ICON_ERROR)
                 return
             if path in self.paths:
                 wx.MessageBox("Path already exists!",
-                              "My Duplicate File Killer", wx.OK | wx.ICON_ERROR)
+                              "My Duplicate File Killer %s" % __version__, wx.OK | wx.ICON_ERROR)
                 return
             self.paths.append(path)
             self.list.Append(path)
@@ -167,7 +168,7 @@ except ImportError:
 
 
 def require_wx():
-    showerror("My Duplicate File Killer",
+    showerror("My Duplicate File Killer %s" % __version__,
               "No wxPython-Phoenix installed. Please type pip install --upgrade --pre -f \
             http://wxpython.org/Phoenix/snapshot-builds wxpython-phoenix.")
 
