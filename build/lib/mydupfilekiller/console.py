@@ -1,8 +1,9 @@
 __all__ = ["main"]
-import getopt
+from optparse import OptionParser
 import sys
 
 from mydupfilekiller.core import *
+from mydupfilekiller import __version__
 
 
 def usage():
@@ -17,27 +18,18 @@ def main():
     Simple console version for the module.
     :return: None
     """
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "lh", ["help"])
-        delete = True
-        for opt, arg in opts:
-            if opt in ("-h", "--help"):
-                usage()
-                sys.exit()
-            elif opt == "-l":
-                delete = False
-            else:
-                assert False, "Unrecognized option"
-        if len(args) == 0:
-            print("Please specify at least one path.")
-            sys.exit()
-        if delete:
-            find_and_delete(args, output=True)
-        else:
-            find(args, output=True)
-
-    except getopt.GetoptError:
-        usage()
+    parser = OptionParser(version=__version__)
+    parser.add_option("-l", '--list',
+                       action="store_true", dest="list",
+                       default=False, help='List duplicate files only.')
+    opts, args = parser.parse_args()
+    if len(args) == 0:
+        print("Please specify at least one path.")
+        sys.exit()
+    if not opts.list:
+        find_and_delete(args, output=True)
+    else:
+        find(args, output=True)
 
 if __name__ == "__main__":
     main()
