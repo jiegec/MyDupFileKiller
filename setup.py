@@ -28,5 +28,6 @@ setup(
     include_package_data=True,
     package_data={
         'mydupfilekiller': ['*.xrc']
-    }
+    },
+    install_requires=['argparse']
 )

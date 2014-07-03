@@ -6,9 +6,9 @@ from tkinter.messagebox import showerror
 
 import pkg_resources
 
-from mydupfilekiller.core import find_and_delete
-from mydupfilekiller.exceptions import SkipAllException
-from mydupfilekiller import __version__
+from .core import find_and_delete
+from .exceptions import SkipAllException
+from . import __version__
 
 
 __all__ = ["main"]

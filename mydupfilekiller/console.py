@@ -1,9 +1,12 @@
-__all__ = ["main"]
-from optparse import OptionParser
+import argparse
 import sys
 
-from mydupfilekiller.core import *
-from mydupfilekiller import __version__
+from . import __version__
+from .core import *
+
+
+__all__ = ["main"]
+
 
 
 def usage():
@@ -18,18 +21,16 @@ def main():
     Simple console version for the module.
     :return: None
     """
-    parser = OptionParser(version=__version__)
-    parser.add_option("-l", '--list',
-                       action="store_true", dest="list",
-                       default=False, help='List duplicate files only.')
-    opts, args = parser.parse_args()
-    if len(args) == 0:
-        print("Please specify at least one path.")
-        sys.exit()
-    if not opts.list:
-        find_and_delete(args, output=True)
+    parser = argparse.ArgumentParser(description="My Duplicate File Killer.")
+    parser.add_argument("-l", '--list', default=False,
+                       action="store_true", help='List duplicate files only.')
+    parser.add_argument('--version', action='version', version='My Duplicate File Killer v%s' % __version__)
+    parser.add_argument('paths', nargs='+')
+    ns = parser.parse_args()
+    if not ns.list:
+        find_and_delete(ns.paths, output=True)
     else:
-        find(args, output=True)
+        find(ns.paths, output=True)
 
 if __name__ == "__main__":
     main()
