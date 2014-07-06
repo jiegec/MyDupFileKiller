@@ -3,7 +3,7 @@ import collections
 from hashlib import md5
 import os
 
-from .exceptions import SkipAllException
+from mydupfilekiller.exceptions import SkipAllException
 
 
 def find(paths, output=False, skip_empty_files=True, follow_links=False):

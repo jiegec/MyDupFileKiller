@@ -6,14 +6,15 @@ from tkinter.messagebox import showerror
 
 import pkg_resources
 
-from .core import find_and_delete
-from .exceptions import SkipAllException
-from . import __version__
+from mydupfilekiller import __version__
+from mydupfilekiller.core import find_and_delete
+from mydupfilekiller.exceptions import SkipAllException
 
 
 __all__ = ["main"]
 
 has_wx = False
+has_pygi = False
 
 
 try:
@@ -163,14 +164,12 @@ try:
 
     has_wx = True
 except ImportError:
-    wx = None
-    xrc = None
-
+    pass
+    
 
 def require_wx():
     showerror("My Duplicate File Killer %s" % __version__,
-              "No wxPython-Phoenix installed. Please type pip install --upgrade --pre -f \
-            http://wxpython.org/Phoenix/snapshot-builds wxpython-phoenix.")
+              "Neither wxPython-Phoenix nor PyGI installed. Please type pip install --upgrade --pre -f http://wxpython.org/Phoenix/snapshot-builds wxpython-phoenix.")
 
 
 def main():

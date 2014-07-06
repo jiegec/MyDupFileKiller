@@ -1,11 +1,12 @@
+from mydupfilekiller import __version__
 try:
     import setuptools
 except ImportError:
     from ez_setup import use_setuptools
     use_setuptools()
     
-from mydupfilekiller import __version__
 from setuptools import setup, find_packages
+    
 
 
 setup(
@@ -29,5 +30,5 @@ setup(
     package_data={
         'mydupfilekiller': ['*.xrc']
     },
-    install_requires=['argparse']
+    install_requires=['argparse', 'cython']
 )

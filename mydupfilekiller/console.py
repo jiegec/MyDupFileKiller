@@ -1,19 +1,11 @@
 import argparse
-import sys
 
-from . import __version__
-from .core import *
+from mydupfilekiller import __version__
+from mydupfilekiller.core import *
 
 
 __all__ = ["main"]
 
-
-
-def usage():
-    print("usage: %s [-h|-l] [--help] ..." % sys.argv[0])
-    print("Options and arguments:")
-    print("-l     : only list duplicate files.")
-    print("arg ...: paths to find duplicate files.")
 
 
 def main():

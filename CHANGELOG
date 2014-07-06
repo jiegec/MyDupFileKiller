@@ -1,3 +1,8 @@
+2.5 22:30 2014-07-06
+-----------------------------
+1.Roll back to absolute import for debug.
+2.Use cython for performance.
+
 2.4 12:23 2014-07-03
 -----------------------------
 1.Add relative import.
